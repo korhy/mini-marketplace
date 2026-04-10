@@ -1,0 +1,20 @@
+framework:
+    messenger:
+        default_bus: command.bus
+
+        buses:
+            command.bus: ~
+            query.bus: ~
+            event.bus:
+                middleware:
+                    - allow_no_handlers
+
+when@test:
+    framework:
+        messenger:
+            buses:
+                command.bus: ~
+                query.bus: ~
+                event.bus:
+                    middleware:
+                        - allow_no_handlers
