@@ -6,8 +6,8 @@ framework:
             command.bus: ~
             query.bus: ~
             event.bus:
-                middleware:
-                    - allow_no_handlers
+                default_middleware:
+                    allow_no_handlers: true
 
 when@test:
     framework:
@@ -16,5 +16,5 @@ when@test:
                 command.bus: ~
                 query.bus: ~
                 event.bus:
-                    middleware:
-                        - allow_no_handlers
+                    default_middleware:
+                        allow_no_handlers: true
