@@ -35,13 +35,10 @@ jobs:
           extensions: pdo_pgsql
 
       - name: Install dependencies
-        working-directory: ./mini-marketplace
         run: composer install --prefer-dist --no-interaction
 
       - name: Run PHPStan
-        working-directory: ./mini-marketplace
         run: vendor/bin/phpstan analyse
 
       - name: Run PHPUnit
-        working-directory: ./mini-marketplace
         run: vendor/bin/phpunit
