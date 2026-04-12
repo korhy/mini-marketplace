@@ -8,6 +8,7 @@ use App\Shared\Domain\Events\DomainEvent;
 
 class AggregateRoot
 {
+    /** @var DomainEvent[] */
     private array $events = [];
 
     public function recordEvent(DomainEvent $event): void
@@ -15,10 +16,12 @@ class AggregateRoot
         $this->events[] = $event;
     }
 
+    /** @return DomainEvent[] */
     public function pullEvents(): array
     {
         $events = $this->events;
         $this->events = [];
+
         return $events;
     }
 }
