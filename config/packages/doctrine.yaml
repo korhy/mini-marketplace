@@ -7,6 +7,11 @@ doctrine:
         #server_version: '16'
 
         profiling_collect_backtrace: '%kernel.debug%'
+        types:
+            listing_id: App\Listing\Infrastructure\Doctrine\Type\ListingIdType
+            seller_id: App\Listing\Infrastructure\Doctrine\Type\SellerIdType
+            listing_title: App\Listing\Infrastructure\Doctrine\Type\ListingTitleType
+            listing_description: App\Listing\Infrastructure\Doctrine\Type\ListingDescriptionType
     orm:
         validate_xml_mapping: true
         naming_strategy: doctrine.orm.naming_strategy.underscore
@@ -17,8 +22,8 @@ doctrine:
             App:
                 type: attribute
                 is_bundle: false
-                dir: '%kernel.project_dir%/src/Entity'
-                prefix: 'App\Entity'
+                dir: '%kernel.project_dir%/src'
+                prefix: 'App'
                 alias: App
 
 when@test:

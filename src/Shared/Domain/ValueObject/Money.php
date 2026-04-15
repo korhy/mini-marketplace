@@ -4,9 +4,15 @@ declare(strict_types=1);
 
 namespace App\Shared\Domain\ValueObject;
 
+use Doctrine\ORM\Mapping as ORM;
+
+#[ORM\Embeddable]
 readonly class Money
 {
+    #[ORM\Column(type: 'integer')]
     private int $amount; // Amount in cents to avoid floating point issues
+
+    #[ORM\Column(type: 'string', length: 3)]
     private string $currency; // ISO 4217 currency code
 
     public function __construct(int $amount, string $currency)
