@@ -8,5 +8,6 @@ final readonly class GetListingQuery
 {
     public function __construct(
         public string $listingId,
-    ) {}
+    ) {
+    }
 }

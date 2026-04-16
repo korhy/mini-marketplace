@@ -22,7 +22,7 @@ final readonly class ListingId
     public static function fromString(string $value): self
     {
         if (!\Symfony\Component\Uid\Uuid::isValid($value)) {
-            throw new \InvalidArgumentException("Invalid UUID: $value");                                   
+            throw new \InvalidArgumentException("Invalid UUID: $value");
         }
 
         return new self($value);

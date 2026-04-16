@@ -14,7 +14,8 @@ final class PublishListingHandler
 {
     public function __construct(
         private ListingRepositoryInterface $repository,
-    ) {}
+    ) {
+    }
 
     public function __invoke(PublishListingCommand $command): void
     {
@@ -22,7 +23,7 @@ final class PublishListingHandler
             ListingId::fromString($command->listingId),
         );
 
-        if ($listing === null) {
+        if (null === $listing) {
             throw new ListingNotFoundException($command->listingId);
         }
 

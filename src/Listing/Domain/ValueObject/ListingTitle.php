@@ -8,8 +8,7 @@ final readonly class ListingTitle
 {
     public function __construct(
         private string $value,
-    )
-    {
+    ) {
         if (empty($this->value)) {
             throw new \InvalidArgumentException('Listing title cannot be empty.');
         }

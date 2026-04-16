@@ -4,9 +4,7 @@ declare(strict_types=1);
 
 namespace App\Listing\Domain\Exception;
 
-use DomainException;
-
-final class ListingNotAvailableException extends DomainException
+final class ListingNotAvailableException extends \DomainException
 {
     public static function forListing(string $listingId): self
     {

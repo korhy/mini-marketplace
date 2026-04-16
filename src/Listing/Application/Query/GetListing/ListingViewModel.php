@@ -15,5 +15,6 @@ final readonly class ListingViewModel
         public string $currency,
         public string $condition,
         public string $status,
-    ) {}
+    ) {
+    }
 }

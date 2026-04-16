@@ -9,26 +9,26 @@ use PHPUnit\Framework\TestCase;
 
 class MoneyTest extends TestCase
 {
-    public function test_it_creates_money(): void
+    public function testItCreatesMoney(): void
     {
         $money = new Money(1000, 'USD');
         $this->assertEquals(1000, $money->amount());
         $this->assertEquals('USD', $money->currency());
     }
 
-    public function test_it_throws_exception_for_negative_amount(): void
+    public function testItThrowsExceptionForNegativeAmount(): void
     {
         $this->expectException(\InvalidArgumentException::class);
         new Money(-100, 'USD');
     }
 
-    public function test_it_throws_exception_for_unsupported_currency(): void
+    public function testItThrowsExceptionForUnsupportedCurrency(): void
     {
         $this->expectException(\InvalidArgumentException::class);
         new Money(1000, 'JPY');
     }
 
-    public function test_it_adds_money(): void
+    public function testItAddsMoney(): void
     {
         $money1 = new Money(1000, 'USD');
         $money2 = new Money(500, 'USD');
@@ -37,7 +37,7 @@ class MoneyTest extends TestCase
         $this->assertEquals('USD', $result->currency());
     }
 
-    public function test_it_throws_exception_when_adding_different_currencies(): void
+    public function testItThrowsExceptionWhenAddingDifferentCurrencies(): void
     {
         $money1 = new Money(1000, 'USD');
         $money2 = new Money(500, 'EUR');
@@ -45,7 +45,7 @@ class MoneyTest extends TestCase
         $money1->add($money2);
     }
 
-    public function test_it_subtracts_money(): void
+    public function testItSubtractsMoney(): void
     {
         $money1 = new Money(1000, 'USD');
         $money2 = new Money(500, 'USD');
@@ -54,7 +54,7 @@ class MoneyTest extends TestCase
         $this->assertEquals('USD', $result->currency());
     }
 
-    public function test_it_throws_exception_when_subtracting_different_currencies(): void
+    public function testItThrowsExceptionWhenSubtractingDifferentCurrencies(): void
     {
         $money1 = new Money(1000, 'USD');
         $money2 = new Money(500, 'EUR');
@@ -62,7 +62,7 @@ class MoneyTest extends TestCase
         $money1->subtract($money2);
     }
 
-    public function test_it_throws_exception_when_subtracting_to_negative(): void
+    public function testItThrowsExceptionWhenSubtractingToNegative(): void
     {
         $money1 = new Money(1000, 'USD');
         $money2 = new Money(1500, 'USD');
@@ -70,7 +70,7 @@ class MoneyTest extends TestCase
         $money1->subtract($money2);
     }
 
-    public function test_it_checks_equality(): void
+    public function testItChecksEquality(): void
     {
         $money1 = new Money(1000, 'USD');
         $money2 = new Money(1000, 'USD');
@@ -82,7 +82,7 @@ class MoneyTest extends TestCase
         $this->assertFalse($money1->equals($money4));
     }
 
-    public function test_it_is_immutable(): void
+    public function testItIsImmutable(): void
     {
         $money1 = new Money(1000, 'USD');
         $money2 = $money1->add(new Money(500, 'USD'));

@@ -67,7 +67,7 @@ class Listing extends AggregateRoot
 
     public function publish(): void
     {
-        if ($this->status !== ListingStatus::DRAFT) {
+        if (ListingStatus::DRAFT !== $this->status) {
             throw ListingAlreadyPublishedException::forListing((string) $this->id);
         }
 
@@ -77,7 +77,7 @@ class Listing extends AggregateRoot
 
     public function markAsSold(): void
     {
-        if ($this->status !== ListingStatus::PUBLISHED) {
+        if (ListingStatus::PUBLISHED !== $this->status) {
             throw ListingNotAvailableException::forListing((string) $this->id);
         }
 
@@ -89,26 +89,32 @@ class Listing extends AggregateRoot
     {
         return $this->id;
     }
+
     public function sellerId(): SellerId
     {
         return $this->sellerId;
     }
+
     public function title(): ListingTitle
     {
         return $this->title;
     }
+
     public function description(): ListingDescription
     {
         return $this->description;
     }
+
     public function price(): Money
     {
         return $this->price;
     }
+
     public function condition(): Condition
     {
         return $this->condition;
     }
+
     public function status(): ListingStatus
     {
         return $this->status;

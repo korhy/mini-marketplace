@@ -17,20 +17,18 @@ final class ListingIdType extends StringType
         return self::NAME;
     }
 
-    public function convertToPHPValue(mixed $value, AbstractPlatform
-    $platform): ?ListingId
+    public function convertToPHPValue(mixed $value, AbstractPlatform $platform): ?ListingId
     {
-        if ($value === null) {
+        if (null === $value) {
             return null;
         }
 
         return ListingId::fromString((string) $value);
     }
 
-    public function convertToDatabaseValue(mixed $value, AbstractPlatform
-    $platform): ?string
+    public function convertToDatabaseValue(mixed $value, AbstractPlatform $platform): ?string
     {
-        if ($value === null) {
+        if (null === $value) {
             return null;
         }
 

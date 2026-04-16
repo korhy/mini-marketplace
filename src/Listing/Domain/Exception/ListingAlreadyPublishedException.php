@@ -4,9 +4,7 @@ declare(strict_types=1);
 
 namespace App\Listing\Domain\Exception;
 
-use DomainException;
-
-final class ListingAlreadyPublishedException extends DomainException
+final class ListingAlreadyPublishedException extends \DomainException
 {
     public static function forListing(string $listingId): self
     {

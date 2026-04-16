@@ -18,7 +18,8 @@ final class CreateListingHandler
 {
     public function __construct(
         private ListingRepositoryInterface $listingRepository,
-    ) {}
+    ) {
+    }
 
     public function __invoke(CreateListingCommand $command): void
     {
@@ -27,7 +28,7 @@ final class CreateListingHandler
             new ListingTitle($command->title),
             new ListingDescription($command->description),
             new Money($command->price, $command->currency),
-            new Condition($command->condition),
+            Condition::from($command->condition),
         );
 
         $this->listingRepository->save($listing);

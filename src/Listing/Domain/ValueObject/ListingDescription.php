@@ -8,8 +8,7 @@ final readonly class ListingDescription
 {
     public function __construct(
         private string $value,
-    )
-    {
+    ) {
         if (empty($this->value)) {
             throw new \InvalidArgumentException('Listing description cannot be empty.');
         }

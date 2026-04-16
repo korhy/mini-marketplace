@@ -14,7 +14,8 @@ final class GetListingHandler
 {
     public function __construct(
         private ListingRepositoryInterface $repository,
-    ) {}
+    ) {
+    }
 
     public function __invoke(GetListingQuery $query): ListingViewModel
     {
@@ -22,7 +23,7 @@ final class GetListingHandler
             ListingId::fromString($query->listingId),
         );
 
-        if ($listing === null) {
+        if (null === $listing) {
             throw ListingNotFoundException::forId($query->listingId);
         }
 

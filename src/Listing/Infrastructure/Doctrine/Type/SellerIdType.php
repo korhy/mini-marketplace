@@ -17,20 +17,18 @@ final class SellerIdType extends StringType
         return self::NAME;
     }
 
-    public function convertToPHPValue(mixed $value, AbstractPlatform
-    $platform): ?SellerId
+    public function convertToPHPValue(mixed $value, AbstractPlatform $platform): ?SellerId
     {
-        if ($value === null) {
+        if (null === $value) {
             return null;
         }
 
         return SellerId::fromString((string) $value);
     }
 
-    public function convertToDatabaseValue(mixed $value, AbstractPlatform
-    $platform): ?string
+    public function convertToDatabaseValue(mixed $value, AbstractPlatform $platform): ?string
     {
-        if ($value === null) {
+        if (null === $value) {
             return null;
         }
 

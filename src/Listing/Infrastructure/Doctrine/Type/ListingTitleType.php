@@ -17,20 +17,18 @@ final class ListingTitleType extends StringType
         return self::NAME;
     }
 
-    public function convertToPHPValue(mixed $value, AbstractPlatform
-    $platform): ?ListingTitle
+    public function convertToPHPValue(mixed $value, AbstractPlatform $platform): ?ListingTitle
     {
-        if ($value === null) {
+        if (null === $value) {
             return null;
         }
 
         return new ListingTitle((string) $value);
     }
 
-    public function convertToDatabaseValue(mixed $value, AbstractPlatform
-    $platform): ?string
+    public function convertToDatabaseValue(mixed $value, AbstractPlatform $platform): ?string
     {
-        if ($value === null) {
+        if (null === $value) {
             return null;
         }
 

@@ -12,6 +12,7 @@ final readonly class CreateListingCommand
         public string $description,
         public int $price,
         public string $currency,
-        public string $condition
-    ) {}
+        public string $condition,
+    ) {
+    }
 }

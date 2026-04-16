@@ -22,7 +22,7 @@ readonly class Money
         }
 
         if (!in_array($currency, ['USD', 'EUR', 'GBP'])) { // Example of supported currencies
-            throw new \InvalidArgumentException('Unsupported currency: ' . $currency);
+            throw new \InvalidArgumentException('Unsupported currency: '.$currency);
         }
 
         $this->amount = $amount;
@@ -44,6 +44,7 @@ readonly class Money
         if ($this->currency !== $other->currency) {
             throw new \InvalidArgumentException('Cannot add money with different currencies');
         }
+
         return new self($this->amount + $other->amount, $this->currency);
     }
 
@@ -55,6 +56,7 @@ readonly class Money
         if ($this->amount < $other->amount) {
             throw new \InvalidArgumentException('Resulting amount cannot be negative');
         }
+
         return new self($this->amount - $other->amount, $this->currency);
     }
 

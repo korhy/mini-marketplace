@@ -34,7 +34,7 @@ class ListingTest extends TestCase
 
     // --- Création ---
 
-    public function test_create_listing_starts_as_draft(): void
+    public function testCreateListingStartsAsDraft(): void
     {
         $listing = $this->createListing();
 
@@ -44,7 +44,7 @@ class ListingTest extends TestCase
 
     // --- publish() ---
 
-    public function test_publish_changes_status_to_published(): void
+    public function testPublishChangesStatusToPublished(): void
     {
         $listing = $this->createListing();
 
@@ -53,7 +53,7 @@ class ListingTest extends TestCase
         $this->assertEquals(ListingStatus::PUBLISHED, $listing->status());
     }
 
-    public function test_publish_records_listing_published_event(): void
+    public function testPublishRecordsListingPublishedEvent(): void
     {
         $listing = $this->createListing();
 
@@ -64,7 +64,7 @@ class ListingTest extends TestCase
         $this->assertInstanceOf(ListingPublished::class, $events[0]);
     }
 
-    public function test_publish_throws_if_already_published(): void
+    public function testPublishThrowsIfAlreadyPublished(): void
     {
         $listing = $this->createListing();
         $listing->publish();
@@ -74,7 +74,7 @@ class ListingTest extends TestCase
         $listing->publish();
     }
 
-    public function test_publish_throws_if_already_sold(): void
+    public function testPublishThrowsIfAlreadySold(): void
     {
         $listing = $this->createListing();
         $listing->publish();
@@ -87,7 +87,7 @@ class ListingTest extends TestCase
 
     // --- markAsSold() ---
 
-    public function test_mark_as_sold_changes_status_to_sold(): void
+    public function testMarkAsSoldChangesStatusToSold(): void
     {
         $listing = $this->createListing();
         $listing->publish();
@@ -97,7 +97,7 @@ class ListingTest extends TestCase
         $this->assertEquals(ListingStatus::SOLD, $listing->status());
     }
 
-    public function test_mark_as_sold_records_listing_sold_event(): void
+    public function testMarkAsSoldRecordsListingSoldEvent(): void
     {
         $listing = $this->createListing();
         $listing->publish();
@@ -110,7 +110,7 @@ class ListingTest extends TestCase
         $this->assertInstanceOf(ListingSold::class, $events[0]);
     }
 
-    public function test_mark_as_sold_throws_if_draft(): void
+    public function testMarkAsSoldThrowsIfDraft(): void
     {
         $listing = $this->createListing();
 
@@ -118,7 +118,7 @@ class ListingTest extends TestCase
         $listing->markAsSold();
     }
 
-    public function test_mark_as_sold_throws_if_already_sold(): void
+    public function testMarkAsSoldThrowsIfAlreadySold(): void
     {
         $listing = $this->createListing();
         $listing->publish();
@@ -131,7 +131,7 @@ class ListingTest extends TestCase
 
     // --- pullEvents() ---
 
-    public function test_pull_events_clears_the_event_list(): void
+    public function testPullEventsClearsTheEventList(): void
     {
         $listing = $this->createListing();
         $listing->publish();
