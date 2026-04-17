@@ -12,6 +12,10 @@ doctrine:
             seller_id: App\Listing\Infrastructure\Doctrine\Type\SellerIdType
             listing_title: App\Listing\Infrastructure\Doctrine\Type\ListingTitleType
             listing_description: App\Listing\Infrastructure\Doctrine\Type\ListingDescriptionType
+            order_id: App\Order\Infrastructure\Doctrine\Type\OrderIdType
+            buyer_id: App\Order\Infrastructure\Doctrine\Type\BuyerIdType
+
+
     orm:
         validate_xml_mapping: true
         naming_strategy: doctrine.orm.naming_strategy.underscore
