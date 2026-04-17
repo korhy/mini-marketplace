@@ -4,10 +4,11 @@ declare(strict_types=1);
 
 namespace App\Shared\Domain\ValueObject;
 
+/** @phpstan-consistent-constructor */
 readonly class Uuid
 {
     public function __construct(
-        private string $value
+        private string $value,
     ) {
         if (!\Symfony\Component\Uid\Uuid::isValid($value)) {
             throw new \InvalidArgumentException("Invalid UUID: $value");
