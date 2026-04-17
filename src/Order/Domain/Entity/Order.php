@@ -15,14 +15,27 @@ use App\Order\Domain\ValueObject\OrderStatus;
 use App\Shared\Domain\AggregateRoot;
 use App\Shared\Domain\ValueObject\ListingId;
 use App\Shared\Domain\ValueObject\Money;
+use Doctrine\ORM\Mapping as ORM;
 
+#[ORM\Entity]
+#[ORM\Table(name: 'orders')]
 class Order extends AggregateRoot
 {
     public function __construct(
+        #[ORM\Id]
+        #[ORM\Column(type: 'order_id')]
         private OrderId $id,
+
+        #[ORM\Column(type: 'buyer_id')]
         private BuyerId $buyerId,
+
+        #[ORM\Column(type: 'listing_id')]
         private ListingId $listingId,
+
+        #[ORM\Embedded(class: Money::class)]
         private Money $totalPrice,
+
+        #[ORM\Column(type: 'string', enumType: OrderStatus::class)]
         private OrderStatus $status = OrderStatus::PENDING,
     ) {
     }
