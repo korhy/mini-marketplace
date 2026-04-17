@@ -64,7 +64,14 @@
         ],
         "post-update-cmd": [
             "@auto-scripts"
-        ]
+        ],
+        "lint": [
+            "@lint:cs",
+            "@lint:stan"
+        ],
+        "lint:cs": "vendor/bin/php-cs-fixer fix --diff --dry-run",
+        "lint:stan": "vendor/bin/phpstan analyse",
+        "fix:cs": "vendor/bin/php-cs-fixer fix"
     },
     "conflict": {
         "symfony/symfony": "*"

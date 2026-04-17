@@ -19,7 +19,8 @@ class Order extends AggregateRoot
         private ListingId $listingId,
         private Money $totalPrice,
         private OrderStatus $status = OrderStatus::PENDING,
-    ) {}
+    ) {
+    }
 
     public static function place(
         ListingId $listingId,
