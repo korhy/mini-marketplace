@@ -4,6 +4,9 @@ declare(strict_types=1);
 
 namespace App\Order\Domain\Entity;
 
+use App\Order\Domain\Event\OrderCancelled;
+use App\Order\Domain\Event\OrderConfirmed;
+use App\Order\Domain\Event\OrderPlaced;
 use App\Order\Domain\ValueObject\BuyerId;
 use App\Order\Domain\ValueObject\OrderId;
 use App\Order\Domain\ValueObject\OrderStatus;
@@ -27,7 +30,16 @@ class Order extends AggregateRoot
         BuyerId $buyerId,
         Money $price,
     ): self {
-        return new self(OrderId::generate(), $buyerId, $listingId, $price);
+        $order = new self(OrderId::generate(), $buyerId, $listingId, $price);
+
+        $order->recordEvent(new OrderPlaced(
+            $order->getId(),
+            $order->getBuyerId(),
+            $order->getListingId(),
+            $order->getTotalPrice(),
+        ));
+
+        return $order;
     }
 
     public function confirm(): void
@@ -40,6 +52,9 @@ class Order extends AggregateRoot
         }
 
         $this->status = OrderStatus::CONFIRMED;
+        $this->recordEvent(new OrderConfirmed(
+            $this->getId(),
+        ));
     }
 
     public function cancel(): void
@@ -52,6 +67,9 @@ class Order extends AggregateRoot
         }
 
         $this->status = OrderStatus::CANCELLED;
+        $this->recordEvent(new OrderCancelled(
+            $this->getId(),
+        ));
     }
 
     public function getId(): OrderId
