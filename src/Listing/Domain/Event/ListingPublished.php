@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace App\Listing\Domain\Event;
 
-use App\Listing\Domain\ValueObject\ListingId;
 use App\Listing\Domain\ValueObject\SellerId;
 use App\Shared\Domain\Events\DomainEvent;
+use App\Shared\Domain\ValueObject\ListingId;
 
 final class ListingPublished extends DomainEvent
 {

@@ -6,6 +6,6 @@ namespace App\Order\Domain\ValueObject;
 
 use App\Shared\Domain\ValueObject\Uuid;
 
-final readonly class OrderId extends Uuid
+final readonly class BuyerId extends Uuid
 {
 }

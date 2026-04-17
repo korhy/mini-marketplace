@@ -10,11 +10,11 @@ use App\Listing\Domain\Exception\ListingAlreadyPublishedException;
 use App\Listing\Domain\Exception\ListingNotAvailableException;
 use App\Listing\Domain\ValueObject\Condition;
 use App\Listing\Domain\ValueObject\ListingDescription;
-use App\Listing\Domain\ValueObject\ListingId;
 use App\Listing\Domain\ValueObject\ListingStatus;
 use App\Listing\Domain\ValueObject\ListingTitle;
 use App\Listing\Domain\ValueObject\SellerId;
 use App\Shared\Domain\AggregateRoot;
+use App\Shared\Domain\ValueObject\ListingId;
 use App\Shared\Domain\ValueObject\Money;
 use Doctrine\ORM\Mapping as ORM;
 

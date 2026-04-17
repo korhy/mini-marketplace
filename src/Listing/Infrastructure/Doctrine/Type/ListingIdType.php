@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Listing\Infrastructure\Doctrine\Type;
 
-use App\Listing\Domain\ValueObject\ListingId;
+use App\Shared\Domain\ValueObject\ListingId;
 use Doctrine\DBAL\Platforms\AbstractPlatform;
 use Doctrine\DBAL\Types\StringType;
 
