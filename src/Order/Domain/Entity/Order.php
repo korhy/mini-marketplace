@@ -7,6 +7,8 @@ namespace App\Order\Domain\Entity;
 use App\Order\Domain\Event\OrderCancelled;
 use App\Order\Domain\Event\OrderConfirmed;
 use App\Order\Domain\Event\OrderPlaced;
+use App\Order\Domain\Exception\OrderCannotBeCancelledException;
+use App\Order\Domain\Exception\OrderCannotBeConfirmedException;
 use App\Order\Domain\ValueObject\BuyerId;
 use App\Order\Domain\ValueObject\OrderId;
 use App\Order\Domain\ValueObject\OrderStatus;
@@ -45,10 +47,7 @@ class Order extends AggregateRoot
     public function confirm(): void
     {
         if (OrderStatus::PENDING !== $this->status) {
-            /*
-            * @TODO: throw specific exceptions for invalid state transitions
-            */
-            throw new \LogicException('Only pending orders can be confirmed');
+            throw OrderCannotBeConfirmedException::forOrder($this->getId()->__toString());
         }
 
         $this->status = OrderStatus::CONFIRMED;
@@ -59,11 +58,8 @@ class Order extends AggregateRoot
 
     public function cancel(): void
     {
-        if (OrderStatus::PENDING !== $this->status) {
-            /*
-            * @TODO: throw specific exceptions for invalid state transitions
-            */
-            throw new \LogicException('Only pending orders can be cancelled');
+        if (OrderStatus::CONFIRMED === $this->status) {
+            throw OrderCannotBeCancelledException::forOrder($this->getId()->__toString());
         }
 
         $this->status = OrderStatus::CANCELLED;
