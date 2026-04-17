@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Listing\Domain\Repository;
 
 use App\Listing\Domain\Entity\Listing;
-use App\Listing\Domain\ValueObject\ListingId;
+use App\Shared\Domain\ValueObject\ListingId;
 
 interface ListingRepositoryInterface
 {

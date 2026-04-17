@@ -6,7 +6,7 @@ namespace App\Listing\Application\Command\PublishListing;
 
 use App\Listing\Domain\Exception\ListingNotFoundException;
 use App\Listing\Domain\Repository\ListingRepositoryInterface;
-use App\Listing\Domain\ValueObject\ListingId;
+use App\Shared\Domain\ValueObject\ListingId;
 use Symfony\Component\Messenger\Attribute\AsMessageHandler;
 
 #[AsMessageHandler(bus: 'command.bus')]
