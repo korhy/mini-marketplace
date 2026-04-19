@@ -1,0 +1,18 @@
+framework:
+    workflows:
+        order_lifecycle:
+            type: state_machine
+            supports:
+                - App\Order\Domain\Entity\Order
+            initial_marking: pending
+            places:
+                - pending
+                - confirmed
+                - cancelled
+            transitions:
+                confirm:
+                    from: pending
+                    to: confirmed
+                cancel:
+                    from: pending
+                    to: cancelled
