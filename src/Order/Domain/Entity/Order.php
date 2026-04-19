@@ -48,10 +48,10 @@ class Order extends AggregateRoot
         $order = new self(OrderId::generate(), $buyerId, $listingId, $price);
 
         $order->recordEvent(new OrderPlaced(
-            $order->getId(),
-            $order->getBuyerId(),
-            $order->getListingId(),
-            $order->getTotalPrice(),
+            $order->id(),
+            $order->buyerId(),
+            $order->listingId(),
+            $order->totalPrice(),
         ));
 
         return $order;
@@ -60,48 +60,48 @@ class Order extends AggregateRoot
     public function confirm(): void
     {
         if (OrderStatus::PENDING !== $this->status) {
-            throw OrderCannotBeConfirmedException::forOrder($this->getId()->__toString());
+            throw OrderCannotBeConfirmedException::forOrder($this->id()->__toString());
         }
 
         $this->status = OrderStatus::CONFIRMED;
         $this->recordEvent(new OrderConfirmed(
-            $this->getId(),
+            $this->id(),
         ));
     }
 
     public function cancel(): void
     {
         if (OrderStatus::CONFIRMED === $this->status) {
-            throw OrderCannotBeCancelledException::forOrder($this->getId()->__toString());
+            throw OrderCannotBeCancelledException::forOrder($this->id()->__toString());
         }
 
         $this->status = OrderStatus::CANCELLED;
         $this->recordEvent(new OrderCancelled(
-            $this->getId(),
+            $this->id(),
         ));
     }
 
-    public function getId(): OrderId
+    public function id(): OrderId
     {
         return $this->id;
     }
 
-    public function getBuyerId(): BuyerId
+    public function buyerId(): BuyerId
     {
         return $this->buyerId;
     }
 
-    public function getListingId(): ListingId
+    public function listingId(): ListingId
     {
         return $this->listingId;
     }
 
-    public function getTotalPrice(): Money
+    public function totalPrice(): Money
     {
         return $this->totalPrice;
     }
 
-    public function getStatus(): OrderStatus
+    public function status(): OrderStatus
     {
         return $this->status;
     }
