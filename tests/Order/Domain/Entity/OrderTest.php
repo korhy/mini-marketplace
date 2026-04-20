@@ -138,4 +138,16 @@ class OrderTest extends TestCase
 
         $order->confirm();
     }
+
+    public function testCancelThrowsIfAlreadyCancelled(): void
+    {
+        $order = $this->createOrder();
+
+        $order->cancel();
+        $order->pullEvents();
+
+        $this->expectException(OrderCannotBeCancelledException::class);
+
+        $order->cancel();
+    }
 }

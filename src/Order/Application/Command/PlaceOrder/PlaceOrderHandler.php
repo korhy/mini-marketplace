@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Order\Application\Command\PlaceOrder;
 
-use App\Listing\Domain\Exception\ListingNotAvailableException;
 use App\Order\Domain\Entity\Order;
+use App\Order\Domain\Exception\ListingNotAvailableForOrderException;
 use App\Order\Domain\Port\ListingAvailabilityChecker;
 use App\Order\Domain\Repository\OrderRepositoryInterface;
 use App\Order\Domain\ValueObject\BuyerId;
@@ -27,7 +27,7 @@ final class PlaceOrderHandler
         $listingId = new ListingId($command->listingId);
 
         if (!$this->listingAvailabilityChecker->isAvailable($listingId)) {
-            throw ListingNotAvailableException::forListing($listingId->__toString());
+            throw ListingNotAvailableForOrderException::forListing($listingId->__toString());
         }
         $order = Order::place(
             new ListingId($command->listingId),
