@@ -71,7 +71,7 @@ class Order extends AggregateRoot
 
     public function cancel(): void
     {
-        if (OrderStatus::CONFIRMED === $this->status) {
+        if (OrderStatus::PENDING !== $this->status) {
             throw OrderCannotBeCancelledException::forOrder($this->id()->__toString());
         }
 
