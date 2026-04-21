@@ -14,6 +14,8 @@ doctrine:
             listing_description: App\Listing\Infrastructure\Doctrine\Type\ListingDescriptionType
             order_id: App\Order\Infrastructure\Doctrine\Type\OrderIdType
             buyer_id: App\Order\Infrastructure\Doctrine\Type\BuyerIdType
+            wallet_id: App\Wallet\Infrastructure\Doctrine\Type\WalletIdType
+            transaction_id: App\Wallet\Infrastructure\Doctrine\Type\TransactionIdType
 
 
     orm:

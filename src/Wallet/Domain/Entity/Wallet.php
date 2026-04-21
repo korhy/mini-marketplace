@@ -11,22 +11,33 @@ use App\Wallet\Domain\Event\FundsDebited;
 use App\Wallet\Domain\Exception\InsufficientFundsException;
 use App\Wallet\Domain\ValueObject\Balance;
 use App\Wallet\Domain\ValueObject\WalletId;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\ORM\Mapping as ORM;
 
+#[ORM\Entity]
+#[ORM\Table(name: 'wallets')]
 class Wallet extends AggregateRoot
 {
-    /** @var Transaction[] */
-    private array $transactions = [];
+    /** @var Collection<int, Transaction> */
+    #[ORM\OneToMany(mappedBy: 'wallet', targetEntity: Transaction::class, cascade: ['persist', 'remove'], orphanRemoval: true)]
+    private Collection $transactions;
 
     public function __construct(
+        #[ORM\Id]
+        #[ORM\Column(type: 'wallet_id')]
         private WalletId $id,
+
+        #[ORM\Embedded(class: Balance::class)]
         private Balance $balance,
     ) {
+        $this->transactions = new ArrayCollection();
     }
 
     public function credit(Money $amount): void
     {
         $this->balance = $this->balance->increase($amount);
-        $this->transactions[] = Transaction::credit($amount, 'Funds credited');
+        $this->transactions[] = Transaction::credit($amount, 'Funds credited', $this);
 
         $this->recordEvent(new FundsCredited(
             $this->id,
@@ -41,7 +52,7 @@ class Wallet extends AggregateRoot
         }
 
         $this->balance = $this->balance->decrease($amount);
-        $this->transactions[] = Transaction::debit($amount, 'Funds debited');
+        $this->transactions[] = Transaction::debit($amount, 'Funds debited', $this);
         $this->recordEvent(new FundsDebited(
             $this->id,
             $amount,
@@ -59,9 +70,9 @@ class Wallet extends AggregateRoot
     }
 
     /**
-     * @return Transaction[]
+     * @return Collection<int, Transaction>
      */
-    public function transactions(): array
+    public function transactions(): Collection
     {
         return $this->transactions;
     }
