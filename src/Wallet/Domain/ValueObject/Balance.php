@@ -16,7 +16,7 @@ final readonly class Balance
         }
     }
 
-    public function balance(): Money
+    public function toMoney(): Money
     {
         return $this->balance;
     }
