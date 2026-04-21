@@ -14,6 +14,9 @@ use App\Wallet\Domain\ValueObject\WalletId;
 
 class Wallet extends AggregateRoot
 {
+    /** @var Transaction[] */
+    private array $transactions = [];
+
     public function __construct(
         private WalletId $id,
         private Balance $balance,
@@ -23,6 +26,7 @@ class Wallet extends AggregateRoot
     public function credit(Money $amount): void
     {
         $this->balance = $this->balance->increase($amount);
+        $this->transactions[] = Transaction::credit($amount, 'Funds credited');
 
         $this->recordEvent(new FundsCredited(
             $this->id,
@@ -37,7 +41,7 @@ class Wallet extends AggregateRoot
         }
 
         $this->balance = $this->balance->decrease($amount);
-
+        $this->transactions[] = Transaction::debit($amount, 'Funds debited');
         $this->recordEvent(new FundsDebited(
             $this->id,
             $amount,
@@ -52,5 +56,13 @@ class Wallet extends AggregateRoot
     public function balance(): Balance
     {
         return $this->balance;
+    }
+
+    /**
+     * @return Transaction[]
+     */
+    public function transactions(): array
+    {
+        return $this->transactions;
     }
 }
