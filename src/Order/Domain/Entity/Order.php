@@ -66,6 +66,9 @@ class Order extends AggregateRoot
         $this->status = OrderStatus::CONFIRMED;
         $this->recordEvent(new OrderConfirmed(
             $this->id(),
+            $this->listingId(),
+            $this->buyerId(),
+            $this->totalPrice(),
         ));
     }
 
