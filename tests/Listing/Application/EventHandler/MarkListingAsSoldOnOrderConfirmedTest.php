@@ -17,6 +17,7 @@ use App\Listing\Domain\ValueObject\SellerId;
 use App\Shared\Domain\IntegrationEvent\OrderConfirmedIntegrationEvent;
 use App\Shared\Domain\ValueObject\ListingId;
 use App\Shared\Domain\ValueObject\Money;
+use App\Shared\Domain\ValueObject\UserId;
 use PHPUnit\Framework\TestCase;
 
 class MarkListingAsSoldOnOrderConfirmedTest extends TestCase
@@ -49,7 +50,7 @@ class MarkListingAsSoldOnOrderConfirmedTest extends TestCase
         $repository->expects($this->once())->method('save')->with($listing);
 
         $handler = new MarkListingAsSoldOnOrderConfirmed($repository);
-        $handler(new OrderConfirmedIntegrationEvent($listingId));
+        $handler(new OrderConfirmedIntegrationEvent($listingId, UserId::generate(), new Money(100, 'EUR')));
 
         $this->assertSame(ListingStatus::SOLD, $listing->status());
     }
@@ -64,7 +65,7 @@ class MarkListingAsSoldOnOrderConfirmedTest extends TestCase
         $handler = new MarkListingAsSoldOnOrderConfirmed($repository);
 
         $this->expectException(ListingNotFoundException::class);
-        $handler(new OrderConfirmedIntegrationEvent($listingId));
+        $handler(new OrderConfirmedIntegrationEvent($listingId, UserId::generate(), new Money(100, 'EUR')));
     }
 
     public function testItThrowsListingNotAvailableExceptionWhenListingIsNotPublished(): void
@@ -88,6 +89,6 @@ class MarkListingAsSoldOnOrderConfirmedTest extends TestCase
         $handler = new MarkListingAsSoldOnOrderConfirmed($repository);
 
         $this->expectException(ListingNotAvailableException::class);
-        $handler(new OrderConfirmedIntegrationEvent($listingId));
+        $handler(new OrderConfirmedIntegrationEvent($listingId, UserId::generate(), new Money(100, 'EUR')));
     }
 }

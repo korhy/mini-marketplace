@@ -71,7 +71,11 @@ class Order extends AggregateRoot
             $this->buyerId(),
             $this->totalPrice(),
         ));
-        $this->recordEvent(new OrderConfirmedIntegrationEvent($this->listingId()));
+        $this->recordEvent(new OrderConfirmedIntegrationEvent(
+            $this->listingId(),
+            $this->buyerId(),
+            $this->totalPrice(),
+        ));
     }
 
     public function cancel(): void
