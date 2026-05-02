@@ -25,6 +25,10 @@ class Listing extends AggregateRoot
     #[ORM\Column(type: 'string', enumType: ListingStatus::class)]
     private ListingStatus $status;
 
+    #[ORM\Version]
+    #[ORM\Column(type: 'integer')]
+    private int $version = 1;
+
     public function __construct(
         #[ORM\Id]
         #[ORM\Column(type: 'listing_id')]
@@ -88,6 +92,11 @@ class Listing extends AggregateRoot
     public function id(): ListingId
     {
         return $this->id;
+    }
+
+    public function version(): int
+    {
+        return $this->version;
     }
 
     public function sellerId(): SellerId
