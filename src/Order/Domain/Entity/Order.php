@@ -13,6 +13,7 @@ use App\Order\Domain\ValueObject\BuyerId;
 use App\Order\Domain\ValueObject\OrderId;
 use App\Order\Domain\ValueObject\OrderStatus;
 use App\Shared\Domain\AggregateRoot;
+use App\Shared\Domain\IntegrationEvent\OrderConfirmedIntegrationEvent;
 use App\Shared\Domain\ValueObject\ListingId;
 use App\Shared\Domain\ValueObject\Money;
 use Doctrine\ORM\Mapping as ORM;
@@ -70,6 +71,7 @@ class Order extends AggregateRoot
             $this->buyerId(),
             $this->totalPrice(),
         ));
+        $this->recordEvent(new OrderConfirmedIntegrationEvent($this->listingId()));
     }
 
     public function cancel(): void
