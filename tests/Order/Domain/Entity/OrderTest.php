@@ -12,6 +12,7 @@ use App\Order\Domain\Exception\OrderCannotBeCancelledException;
 use App\Order\Domain\Exception\OrderCannotBeConfirmedException;
 use App\Order\Domain\ValueObject\BuyerId;
 use App\Order\Domain\ValueObject\OrderStatus;
+use App\Shared\Domain\IntegrationEvent\OrderConfirmedIntegrationEvent;
 use App\Shared\Domain\ValueObject\ListingId;
 use App\Shared\Domain\ValueObject\Money;
 use PHPUnit\Framework\TestCase;
@@ -102,8 +103,9 @@ class OrderTest extends TestCase
         $order->confirm();
 
         $events = $order->pullEvents();
-        $this->assertCount(2, $events);
+        $this->assertCount(3, $events);
         $this->assertInstanceOf(OrderConfirmed::class, $events[1]);
+        $this->assertInstanceOf(OrderConfirmedIntegrationEvent::class, $events[2]);
     }
 
     // --- Cancel ---
