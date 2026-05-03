@@ -27,6 +27,7 @@ jobs:
 
     env:
       DATABASE_URL: "postgresql://app:secret@127.0.0.1:5434/mini_marketplace?serverVersion=17&charset=utf8"
+      JWT_PASSPHRASE: test
 
     steps:
       - uses: actions/checkout@v4
@@ -44,7 +45,6 @@ jobs:
         run: php bin/console lexik:jwt:generate-keypair --overwrite
         env:
           APP_ENV: test
-          JWT_PASSPHRASE: test
 
       - name: Create test database and run migrations
         run: |
