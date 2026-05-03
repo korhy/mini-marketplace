@@ -25,6 +25,9 @@ jobs:
           --health-timeout 5s
           --health-retries 5
 
+    env:
+      DATABASE_URL: "postgresql://app:secret@127.0.0.1:5434/mini_marketplace?serverVersion=17&charset=utf8"
+
     steps:
       - uses: actions/checkout@v4
 
@@ -36,6 +39,11 @@ jobs:
 
       - name: Install dependencies
         run: composer install --prefer-dist --no-interaction
+
+      - name: Create test database and run migrations
+        run: |
+          php bin/console doctrine:database:create --env=test --no-interaction
+          php bin/console doctrine:migrations:migrate --env=test --no-interaction
 
       - name: Run PHPStan
         run: vendor/bin/phpstan analyse
